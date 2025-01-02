@@ -8,6 +8,31 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
+		opts = function(_, _)
+			local ls = require("luasnip")
+			local fmta = require("luasnip.extras.fmt").fmta
+			local f = ls.function_node
+			local s = ls.snippet
+			ls.add_snippets("javascriptreact", {
+				s(
+					"rc",
+					fmta(
+						[[
+              const <NODE_1> = () =>> {{
+                return <<div>><NODE_1><</div>>;
+              }}
+
+              export default <NODE_1>;
+            ]],
+						{
+							NODE_1 = f(function()
+								return vim.fn.expand("%:t:r")
+							end),
+						}
+					)
+				),
+			})
+		end,
 	},
 	{
 		"hrsh7th/nvim-cmp",
